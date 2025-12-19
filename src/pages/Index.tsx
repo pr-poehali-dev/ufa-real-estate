@@ -8,11 +8,13 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import Icon from '@/components/ui/icon';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 function Index() {
   const [loanAmount, setLoanAmount] = useState(3000000);
   const [loanTerm, setLoanTerm] = useState(20);
   const [interestRate] = useState(12.5);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const calculateMonthlyPayment = () => {
     const monthlyRate = interestRate / 100 / 12;
@@ -168,7 +170,8 @@ function Index() {
             <a href="#blog" className="text-sm hover:text-accent transition-colors">Блог</a>
             <a href="#contact" className="text-sm hover:text-accent transition-colors">Контакты</a>
           </nav>
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
+            <div className="hidden md:flex gap-3">
             <Button variant="ghost" size="icon" asChild>
               <a href="https://vk.com/realty_wera" target="_blank" rel="noopener noreferrer">
                 <Icon name="MessageCircle" size={20} />
@@ -179,6 +182,63 @@ function Index() {
                 <Icon name="Send" size={20} />
               </a>
             </Button>
+            </div>
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild className="md:hidden">
+                <Button variant="ghost" size="icon">
+                  <Icon name="Menu" size={24} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px]">
+                <nav className="flex flex-col gap-6 mt-8">
+                  <a 
+                    href="#services" 
+                    className="text-lg hover:text-accent transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Услуги
+                  </a>
+                  <a 
+                    href="#buildings" 
+                    className="text-lg hover:text-accent transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Новостройки
+                  </a>
+                  <a 
+                    href="#blog" 
+                    className="text-lg hover:text-accent transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Блог
+                  </a>
+                  <a 
+                    href="#contact" 
+                    className="text-lg hover:text-accent transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Контакты
+                  </a>
+                  <div className="border-t pt-6 mt-4">
+                    <p className="text-sm text-muted-foreground mb-4">Связаться со мной:</p>
+                    <div className="flex flex-col gap-3">
+                      <Button variant="outline" className="w-full justify-start" asChild>
+                        <a href="https://vk.com/realty_wera" target="_blank" rel="noopener noreferrer">
+                          <Icon name="MessageCircle" size={20} className="mr-2" />
+                          ВКонтакте
+                        </a>
+                      </Button>
+                      <Button variant="outline" className="w-full justify-start" asChild>
+                        <a href="https://t.me/bashnedvizh" target="_blank" rel="noopener noreferrer">
+                          <Icon name="Send" size={20} className="mr-2" />
+                          Telegram
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
